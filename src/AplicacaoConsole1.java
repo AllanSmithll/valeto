@@ -14,9 +14,9 @@ public class AplicacaoConsole1 {
 				System.out.println(s);
 			}
 			System.out.println("listar vagas livres");
-			for(int i : estacionamento.listarLivres()) {
-				System.out.println(i);
-			}
+			//for(int i : estacionamento.listarLivres()) {
+			//	System.out.println(i);
+			//}
 			estacionamento.entrar("AAA1111",1);
 			estacionamento.entrar("AAA2222",2);
 			estacionamento.entrar("AAA5555",5);
@@ -39,23 +39,23 @@ public class AplicacaoConsole1 {
 			}
 			
 			System.out.println("listar vagas livres");
-			for(int i : estacionamento.listarLivres()) {
-				System.out.println(i);
-			}
+			//for(int i : estacionamento.listarLivres()) {
+			//	System.out.println(i);
+			//}
 
-			System.out.println("gravar dados no arquivo");
-			estacionamento.gravarDados();
-			System.out.println("ler dados do arquivo");
-			estacionamento.lerDados();
+			//System.out.println("gravar dados no arquivo");
+			//estacionamento.gravarDados();
+			//System.out.println("ler dados do arquivo");
+			//estacionamento.lerDados();
 			
 			System.out.println("listar vagas geral");
 			for(String s : estacionamento.listarGeral()) {
 				System.out.println(s);
 			}
 			System.out.println("listar vagas livres");
-			for(int i : estacionamento.listarLivres()) {
-				System.out.println(i);
-			}
+			//for(int i : estacionamento.listarLivres()) {
+			//	System.out.println(i);
+			//}
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
