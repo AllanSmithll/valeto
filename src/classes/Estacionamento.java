@@ -16,7 +16,7 @@ public class Estacionamento {
 		placas = new String[vagasTotais];
 		
 		for(int i=0; i<placas.length; i++) {
-			placas[i] = "Vaga Nº" + (i+1);
+			placas[i] = "livre";
 		}
 	}
 	
