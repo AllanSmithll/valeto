@@ -48,4 +48,8 @@ public class Estacionamento {
 	public String[] listarGeral() {
 		return placas;
 	}
+	
+	private boolean estaLivre(int vaga) {
+		return this.placas[vaga] == "livre";
+	}
 }
