@@ -9,9 +9,14 @@ public class Estacionamento {
 	private String[] placas;
 	
 	// Queria saber se as propriedades e o construtor estão corretos
-	public Estacionamento(int vagasTotais) {
-		for (int i = 0; i < placas.length; i++) {
-		    placas[i] = "vago";
+	public Estacionamento(int vagasTotais) throws Exception {
+		if(vagasTotais <= 0) {
+			throw new Exception("Quantidade de vagas inválida. Tem que ter pelo menos uma vaga.");
+		}
+		placas = new String[vagasTotais];
+		
+		for(int i=0; i<placas.length; i++) {
+			placas[i] = "Vaga Nº" + (i+1);
 		}
 	}
 	
