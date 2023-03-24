@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
  * Classe Estacionamento
@@ -16,7 +18,7 @@ public class Estacionamento {
 		placas = new String[vagasTotais];
 		
 		for(int i=0; i<placas.length; i++) {
-			placas[i] = "Vaga Nº" + (i+1);
+			placas[i] = "Vaga Nº: " + (i+1) + "Livre";
 		}
 	}
 	
@@ -37,15 +39,33 @@ public class Estacionamento {
 	}
 	
 	// Melhorar a consulta da placa
+//	public int consultarPlaca(String placa) {
+//		for(int i=0; i < placas.length; i++) {
+//			if( placa == placas[i])
+//				return i + 1;
+//		}
+//		return -1;
+//	}
 	public int consultarPlaca(String placa) {
-		for(int i=0; i < placas.length; i++) {
-			if( placa == placas[i])
-				return i + 1;
-		}
-		return -1;
+		int getIndex = Arrays.asList(this.placas).indexOf(placa);
+		return getIndex + 1;
 	}
 	
+	
 	public String[] listarGeral() {
-		return placas;
+		String[] respose = new  String[this.placas.length];
+		for(int i=0; i<placas.length; i++) {
+			respose[i] = placas[i];
+		}
+		
+		return respose;
 	}
+
+	@Override
+	public String toString() {
+		return "Estacionamento [placas=" + Arrays.toString(placas) + "]";
+	}
+	
+	
 }
+	
