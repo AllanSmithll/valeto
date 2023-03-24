@@ -21,6 +21,7 @@ public class Estacionamento {
 	}
 	
 	public void entrar(String placa, int vaga) {
+		assert estaLivre(vaga) : "Vaga ocupada. Escolha outro lugar para estacionar.";
 		placas[vaga-1] = placa;
 	}
 	
