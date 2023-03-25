@@ -26,12 +26,14 @@ public class Estacionamento {
 	
 	// Método para adicionar um carro a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
-		if ((estaLivre(vaga) == false)) {
+		if ((!estaLivre(vaga))) {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
-		if (vagaNaoExiste(vaga) == true) {
-			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length);
+
+		if (vagaNaoExiste(vaga)) {
+			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
+
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -48,12 +50,13 @@ public class Estacionamento {
 
 	// Método para remover uma placa de onde está estacionada e gravar no histórico
 	public void sair(int vaga) throws Exception{
-		if(estaLivre(vaga) == true) {
+		if(estaLivre(vaga)) {
 			throw new Exception("A vaga já está desocupada. Tente desocupar por outro número de vaga existente.");
 		}
-		if (vagaNaoExiste(vaga) == true) {
-			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length);
+		if (vagaNaoExiste(vaga)) {
+			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
+
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -67,12 +70,25 @@ public class Estacionamento {
 		}
 	}
 
-	public void transferir(int origem, int destino) {
-		if(placas[destino] == "livre") {
-			String variavelAuxiliar = placas[origem];
-			placas[origem] = "livre";
-			placas[destino] = variavelAuxiliar;
+	// Transferir uma placa de uma vaga para outra
+	public void transferir(int origem, int destino) throws Exception{
+		if(vagaNaoExiste(origem) && vagaNaoExiste(destino)) {
+			throw new Exception("Pelo menos uma das vagas são inexistentes.");
 		}
+
+		if(!estaLivre(origem)) {
+			if (estaLivre(destino)) {
+				placas[destino-1] = placas[origem-1];
+				placas[origem-1] = "livre";
+			}
+			else {
+				throw new Exception("Não foi possível transferir, pois a vaga de destino está ocupada.");
+			}
+		}
+		else {
+			throw new Exception("Não foi possível transferir, pois a vaga de origem está livre (vazia).");
+		}
+
 	}
 	
 	// Melhorar a consulta da placa
