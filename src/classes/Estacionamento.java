@@ -97,6 +97,6 @@ public class Estacionamento {
 	}
 
 	// MÉTODOS PRIVATE
-	private boolean estaLivre(int vaga) {return this.placas[vaga-1] == "livre";}
+	private boolean estaLivre(int vaga) {return this.placas[vaga-1].equals("livre");}
 	private boolean vagaNaoExiste(int vaga) {return vaga < 1 || vaga > this.placas.length;}
 }
