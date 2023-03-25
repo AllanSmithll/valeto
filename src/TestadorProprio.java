@@ -1,4 +1,3 @@
-
 /**
  * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
  * Testador criado por nós para o nosso projeto
@@ -26,6 +25,12 @@ public class TestadorProprio {
 		for(String vagas : estacionamento.listarGeral()) {
 			System.out.println(vagas);
 		}
+		estacionamento.sair(1);
+		System.out.println("Listar geral novamente:");
+		for(String vagas : estacionamento.listarGeral()) {
+			System.out.println(vagas);
+		}
+
 	}
 
 }

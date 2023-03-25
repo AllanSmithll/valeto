@@ -26,13 +26,12 @@ public class Estacionamento {
 	
 	// Método para adicionar um carro a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
-		if (!placas[vaga-1].equals("livre")) {
-			throw new Exception("A vaga está ocupada.");
+		if ((estaLivre(vaga) == false)) {
+			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
-		if(vaga < 1 || vaga > this.placas.length) {
+		if (vagaNaoExiste(vaga) == true) {
 			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length);
 		}
-		
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -47,8 +46,25 @@ public class Estacionamento {
 		}
 	}
 
-	public void sair(int vaga) {
-		placas[vaga-1] = "livre";
+	// Método para remover uma placa de onde está estacionada e gravar no histórico
+	public void sair(int vaga) throws Exception{
+		if(estaLivre(vaga) == true) {
+			throw new Exception("A vaga já está desocupada. Tente desocupar por outro número de vaga existente.");
+		}
+		if (vagaNaoExiste(vaga) == true) {
+			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length);
+		}
+		else {
+			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
+			LocalDateTime dataAtual = LocalDateTime.now();
+			DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			String dataFormatada = dataAtual.format(formatacaoData);
+			
+			historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga,placas[vaga-1], "Saida"));
+			placas[vaga-1] = "livre";
+			historicoMovimentacao.flush();
+			historicoMovimentacao.close();
+		}
 	}
 
 	public void transferir(int origem, int destino) {
@@ -79,4 +95,8 @@ public class Estacionamento {
 	public void lerDados() {
 		
 	}
+
+	// MÉTODOS PRIVATE
+	private boolean estaLivre(int vaga) {return this.placas[vaga-1] == "livre";}
+	private boolean vagaNaoExiste(int vaga) {return vaga < 1 || vaga > this.placas.length;}
 }
