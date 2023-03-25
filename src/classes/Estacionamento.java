@@ -91,13 +91,21 @@ public class Estacionamento {
 
 	}
 	
-	// Melhorar a consulta da placa
-	public int consultarPlaca(String placa) {
-		for(int i=0; i < placas.length; i++) {
-			if( placa == placas[i])
-				return i + 1;
+	// Consultar uma placa específica do Estacionamento
+	public int consultarPlaca(String placa) throws Exception{
+		try {
+			int contador = 0;
+			for(String plac : placas) {
+				if(plac != "livre" & plac.equals(placa)) {
+					return contador + 1;
+				}
+				contador++;
+			}
+			return -1;
 		}
-		return -1;
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 	
 	public String[] listarGeral() {
