@@ -7,6 +7,7 @@ package classes;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 // As propriedades precisam ser melhoradas
 public class Estacionamento {
@@ -110,6 +111,10 @@ public class Estacionamento {
 	
 	public String[] listarGeral() {
 		return placas;
+	}
+
+	public ArrayList<Integer> listarLivres() {
+		
 	}
 	
 	public void gravarDados() {
