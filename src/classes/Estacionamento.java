@@ -108,7 +108,7 @@ public class Estacionamento {
 	}
 	
 	public String[] listarGeral() {
-		return placas;
+		return Arrays.copyOf(placas, placas.length);
 	}
 
 	public ArrayList<Integer> listarLivres() {

@@ -54,7 +54,7 @@ public class TestadorProprio {
 		}
 
 		try {
-			estacionamento.entrar("AAA333", 3);
+			estacionamento.entrar("AAA3333", 3);
 			System.out.println("Listar geral novamente:");
 			for(String vagas : estacionamento.listarGeral()) {
 				System.out.println(vagas);
