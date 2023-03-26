@@ -74,5 +74,17 @@ public class TestadorProprio {
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		try {
+			int vagaPosicao = estacionamento.consultarPlaca("AAA2222");
+			System.out.println("vaga da placa AAA2222 = "+vagaPosicao);
+			System.out.println("Listar geral novamente:");
+			for(String vagas : estacionamento.listarGeral()) {
+				System.out.println(vagas);
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }

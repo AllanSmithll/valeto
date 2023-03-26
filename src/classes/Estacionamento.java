@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 // As propriedades precisam ser melhoradas
 public class Estacionamento {
@@ -95,12 +96,9 @@ public class Estacionamento {
 	// Consultar uma placa específica do Estacionamento
 	public int consultarPlaca(String placa) throws Exception{
 		try {
-			int contador = 0;
-			for(String plac : placas) {
-				if(plac != "livre" & plac.equals(placa)) {
-					return contador + 1;
-				}
-				contador++;
+			int getIndex = Arrays.asList(this.placas).indexOf(placa);
+			if (this.placas[getIndex].equals(placa)) {
+				return getIndex + 1;
 			}
 			return -1;
 		}
