@@ -107,20 +107,46 @@ public class Estacionamento {
 		}
 	}
 	
+	// Listar todas as vagas do Estacionamento
 	public String[] listarGeral() {
 		return Arrays.copyOf(placas, placas.length);
 	}
 
+	// Listar as vagas livres do Estacionamento
 	public ArrayList<Integer> listarLivres() {
-		
+		ArrayList<Integer> vagasLivres = new ArrayList<>();
+
+		for(int i = 0; i < this.placas.length; i++){
+    		if(estaLivre(i+1)){
+    			vagasLivres.add(i+1);
+    		}   
+		}
+		return vagasLivres;
 	}
 	
-	public void gravarDados() {
-		
+	// Método que grava as placas e a vaga ocupada no momento, no arquivo placas.csv
+	public void gravarDados() throws Exception {
+		try {
+			FileWriter placas = new FileWriter("./data/placas.csv", true);
+			for(int i=0; i < this.placas.length; i++) {
+				if(!estaLivre(i+1)) {
+					placas.write(String.format("%s;%s%n", this.placas[i], i+1));
+				}
+			}
+			placas.flush();
+			placas.close();	
+		} 
+		catch (Exception e){
+			throw new Exception(e.getMessage());
+		}
 	}
 	
 	public void lerDados() {
 		
+	}
+
+	public String toString() {
+		return "Estacionamento [placas=" + Arrays.toString(placas) + "]";
 	}
 
 	// MÉTODOS PRIVATE
