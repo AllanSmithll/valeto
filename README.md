@@ -1,2 +1,9 @@
-# Sistema-Estacionamento-POO
-Projeto 1 da disciplina Programação Orientada a Objetos, período 3, do curso Sistemas para Internet. Uma aplicação de um estacionamento, com alguns requisitos a serem incluídos.
+# Sistema-Estacionamento-POO - Características gerais
+
+- Classe Valetinho - parte gráfica/frontend;
+- Classe Estacionamento - console/backend;
+- Pasta "data" que serve para salvamento de dados;
+- Classes testadoras.
+
+Para mais informações sobre **requisitos**, acesse:
+[Requisitos do Projeto](https://drive.google.com/file/d/1U82GVsL4xTz1QhWNydE2n77kamBKyCPy/view?usp=share_link).
