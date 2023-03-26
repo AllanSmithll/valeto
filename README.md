@@ -1,7 +1,7 @@
-# Sistema-Estacionamento-POO - Requisitos do Projeto
+# Sistema-Estacionamento-POO - Características gerais
 
-- Classe Valetinho;
-- Classe Estacionamento;
+- Classe Valetinho - parte gráfica/frontend;
+- Classe Estacionamento - console/backend;
 - Pasta "data" que serve para salvamento de dados;
 - Classes testadoras.
 
