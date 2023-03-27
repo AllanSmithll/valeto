@@ -4,11 +4,13 @@
 */
 package classes;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 // As propriedades precisam ser melhoradas
 public class Estacionamento {
@@ -28,12 +30,16 @@ public class Estacionamento {
 	
 	// Método para adicionar um carro a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
+		placa.toUpperCase();
+
 		if ((!estaLivre(vaga))) {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
-
 		if (vagaNaoExiste(vaga)) {
 			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
+		}
+		if (!formatacaoPlacaDentroDoPadrao(placa)) {
+			throw new Exception("A placa possui tamanho diferente do padrão, que é AAA0000 (3 letras maiúculas e 4 números).");
 		}
 
 		else {
@@ -74,10 +80,12 @@ public class Estacionamento {
 
 	// Transferir uma placa de uma vaga para outra
 	public void transferir(int origem, int destino) throws Exception{
+		if(destino == origem) {
+			throw new Exception("Vaga de destino igual à vaga de origem.");
+		}
 		if(vagaNaoExiste(origem) && vagaNaoExiste(destino)) {
 			throw new Exception("Pelo menos uma das vagas são inexistentes.");
 		}
-
 		if(!estaLivre(origem)) {
 			if (estaLivre(destino)) {
 				placas[destino-1] = placas[origem-1];
@@ -94,17 +102,12 @@ public class Estacionamento {
 	}
 	
 	// Consultar uma placa específica do Estacionamento
-	public int consultarPlaca(String placa) throws Exception{
-		try {
-			int getIndex = Arrays.asList(this.placas).indexOf(placa);
-			if (this.placas[getIndex].equals(placa)) {
-				return getIndex + 1;
-			}
-			return -1;
+	public int consultarPlaca(String placa) {
+		int getIndex = Arrays.asList(this.placas).indexOf(placa);
+		if (this.placas[getIndex].equals(placa)) {
+			return getIndex + 1;
 		}
-		catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
+		return -1;
 	}
 	
 	// Listar todas as vagas do Estacionamento
@@ -124,32 +127,79 @@ public class Estacionamento {
 		return vagasLivres;
 	}
 	
-	// Método que grava as placas e a vaga ocupada no momento, no arquivo placas.csv
+	// Método que grava a placa e a vaga ocupada no momento, no arquivo placas.csv
 	public void gravarDados() throws Exception {
 		try {
 			FileWriter placas = new FileWriter("./data/placas.csv", true);
 			for(int i=0; i < this.placas.length; i++) {
 				if(!estaLivre(i+1)) {
-					placas.write(String.format("%s;%s%n", this.placas[i], i+1));
+					placas.write(String.format("%s;%s%n", i+1, this.placas[i]));
 				}
 			}
 			placas.flush();
 			placas.close();	
-		} 
-		catch (Exception e){
+		} catch (Exception e){
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public void lerDados() {
-		
+	// Método que serve para ler cada linha do arquivo placas.csv
+	public void lerDados() throws Exception{
+		try {
+			File placas_file = new File("./data/placas.csv");
+
+			if(placas_file.exists()) {
+				Scanner sc = new Scanner("./data/placas.csv");
+				String[] linhas_lidas_placas_csv = sc.nextLine().split(";");
+
+				while(sc.hasNextLine()) {
+					this.placas[Integer.parseInt(linhas_lidas_placas_csv[0]) - 1] = linhas_lidas_placas_csv[0];
+				}
+
+				sc.close();
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
+	// Método toString(), que serve para retornar os valores que estão na propriedade placas
 	public String toString() {
 		return "Estacionamento [placas=" + Arrays.toString(placas) + "]";
 	}
 
 	// MÉTODOS PRIVATE
+	// Método para saber se uma vaga está livre
 	private boolean estaLivre(int vaga) {return this.placas[vaga-1].equals("livre");}
+
+	// Método para saber se a vaga existe
 	private boolean vagaNaoExiste(int vaga) {return vaga < 1 || vaga > this.placas.length;}
+
+	// Método para saber se a placa está formatada
+	private boolean formatacaoPlacaDentroDoPadrao(String placa) throws Exception {
+		int TAMANHO_PADRAO_PLACA = 7;
+		int QUANTIDADE_LETRAS = 3;
+		int QUANTIDADE_NUMEROS = 4;
+
+		// Verifica se a String possui exatamente o tamanho padrão
+        if (placa.length() != TAMANHO_PADRAO_PLACA) {
+            return false;
+        }
+        // Verifica se os primeiros três caracteres são letras
+        for (int i = 0; i < QUANTIDADE_LETRAS; i++) {
+            char c = placa.charAt(i);
+            if (!Character.isLetter(c) || !Character.isUpperCase(c)) {
+                return false;
+            }
+        }
+        // Verifica se os últimos quatro caracteres são dígitos numéricos
+        for (int i = QUANTIDADE_NUMEROS-1; i < TAMANHO_PADRAO_PLACA; i++) {
+            char c = placa.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        // Retorna true se a String atender a todas as regras de validação
+        return true;
+	}
 }
