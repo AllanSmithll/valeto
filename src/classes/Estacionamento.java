@@ -19,7 +19,7 @@ public class Estacionamento {
 	// Construtor
 	public Estacionamento(int vagasTotais) throws Exception {
 		if(vagasTotais <= 0) {
-			throw new Exception("Quantidade de vagas inválida. Tem que ter pelo menos uma vaga.");
+			throw new Exception("Quantidade de vagas inválida. Tem que ter pelo menos uma vaga no construtor.");
 		}
 		placas = new String[vagasTotais];
 		
