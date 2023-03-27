@@ -30,7 +30,7 @@ public class Estacionamento {
 	
 	// Método para adicionar um carro a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
-		placa.toUpperCase();
+		String placaUpperCase = placa.toUpperCase();
 
 		if ((!estaLivre(vaga))) {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
@@ -38,8 +38,8 @@ public class Estacionamento {
 		if (vagaNaoExiste(vaga)) {
 			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
-		if (!formatacaoPlacaDentroDoPadrao(placa)) {
-			throw new Exception("A placa possui tamanho diferente do padrão, que é AAA0000 (3 letras maiúculas e 4 números).");
+		if (!formatacaoPlacaDentroDoPadrao(placa.toUpperCase())) {
+			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números).");
 		}
 
 		else {
@@ -48,9 +48,9 @@ public class Estacionamento {
 			DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			String dataFormatada = dataAtual.format(formatacaoData);
 			
-			placas[vaga-1] = placa;
+			placas[vaga-1] = placaUpperCase;
 			
-			historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga, placa, "Entrada"));
+			historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga, placaUpperCase, "Entrada"));
 			historicoMovimentacao.flush();
 			historicoMovimentacao.close();
 		}

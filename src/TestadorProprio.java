@@ -86,5 +86,24 @@ public class TestadorProprio {
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		try {
+			estacionamento.entrar("adi2345", 6);
+			System.out.println("Listar geral novamente:");
+			for(String vagas : estacionamento.listarGeral()) {
+				System.out.println(vagas);
+		}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			estacionamento.sair(6);
+			System.out.println("Listar geral novamente:");
+			for(String vagas : estacionamento.listarGeral()) {
+				System.out.println(vagas);
+		}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
