@@ -1,3 +1,7 @@
+/**
+ * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * Classe Estacionamento
+*/
 package classes;
 
 import java.awt.EventQueue;
@@ -11,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+//import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
@@ -96,7 +100,6 @@ public class Valetinho {
 				try {
 					estacionamento.entrar(placa, vaga);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					String error = e1.getMessage();
 					errorLabel.setText("Error: " + error);
 				

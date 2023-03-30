@@ -39,7 +39,7 @@ public class Estacionamento {
 			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
 		if (!formatacaoPlacaDentroDoPadrao(placa.toUpperCase())) {
-			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números).");
+			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, não foi inserida no Estacionamento.");
 		}
 
 		else {

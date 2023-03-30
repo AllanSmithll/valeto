@@ -4,7 +4,6 @@
 */
 import classes.Estacionamento;
 
-
 public class TestadorProprio {
 
 	public static void main(String[] args) throws Exception{
