@@ -36,10 +36,14 @@ public class Estacionamento {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
 		if (vagaNaoExiste(vaga)) {
-			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
+			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
+		if (placaIgualJaInserida(placaUpperCase)) {
+			throw new Exception("A placa digitada já foi inserida!");
+		}
+
 		if (!formatacaoPlacaDentroDoPadrao(placa.toUpperCase())) {
-			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, não foi inserida no Estacionamento.");
+			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
 		}
 
 		else {
@@ -174,6 +178,15 @@ public class Estacionamento {
 
 	// Método para saber se a vaga existe
 	private boolean vagaNaoExiste(int vaga) {return vaga < 1 || vaga > this.placas.length;}
+
+	// Método para verificar se a placa do veículo que está entrando tem a mesma placa de um veículo que está dentro do Estacionamento
+	private boolean placaIgualJaInserida(String placa) {
+		for(String plac: placas) {
+			if(plac == placa) return true;
+			else continue;
+		}
+		return false;
+	}
 
 	// Método para saber se a placa está formatada
 	private boolean formatacaoPlacaDentroDoPadrao(String placa) throws Exception {
