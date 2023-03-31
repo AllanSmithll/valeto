@@ -42,7 +42,7 @@ public class Estacionamento {
 			throw new Exception("A placa digitada já foi inserida!");
 		}
 
-		if (!formatacaoPlacaDentroDoPadrao(placa.toUpperCase())) {
+		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
 			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
 		}
 
@@ -181,11 +181,10 @@ public class Estacionamento {
 
 	// Método para verificar se a placa do veículo que está entrando tem a mesma placa de um veículo que está dentro do Estacionamento
 	private boolean placaIgualJaInserida(String placa) {
-		for(String plac: placas) {
-			if(plac == placa) return true;
-			else continue;
-		}
-		return false;
+		for (String plac : placas) {
+            if (plac != "livre" && plac.equals(placa)) return true;
+        }
+        return false;
 	}
 
 	// Método para saber se a placa está formatada
