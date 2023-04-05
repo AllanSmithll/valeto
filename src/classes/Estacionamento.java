@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-// As propriedades precisam ser melhoradas
+// Classe Base
 public class Estacionamento {
 	private String[] placas;
 	

@@ -20,7 +20,7 @@ public class TestadorProprio {
 		}
 
 		try {
-			estacionamento.entrar("AAA1111",1);
+			estacionamento.entrar("AAA1111",11);
 			System.out.println("Listar geral novamente:");
 			for(String vagas : estacionamento.listarGeral()) {
 				System.out.println(vagas);

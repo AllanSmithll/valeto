@@ -104,7 +104,6 @@ public class Valetinho {
 				} catch (Exception e1) {
 					String error = e1.getMessage();
 					errorLabel.setText("Error: " + error);
-					JOptionPane.showMessageDialog(null, "Placa inválida ou vaga ocupada. Tente novamente!");
 				}
 			}
 		});
