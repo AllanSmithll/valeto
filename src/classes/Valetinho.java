@@ -167,7 +167,7 @@ public class Valetinho {
 				try {
 				String vagaCaractere = textField_consultar.getText();
 				String resposta = Integer.toString(estacionamento.consultarPlaca(vagaCaractere));
-				consultarLabel.setText("Seu carro está na " + resposta + "ª" + " vaga.");
+				consultarLabel.setText("Seu veículo está na " + resposta + "ª" + " vaga.");
 				}
 				catch(Exception e1) {
 					String error = "Placa Inexistente.";
