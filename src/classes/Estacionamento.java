@@ -28,24 +28,22 @@ public class Estacionamento {
 		}
 	}
 	
-	// Método para adicionar um carro a uma vaga, e registrar no histórico
+	// Método para adicionar uma placa a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
 		String placaUpperCase = placa.toUpperCase();
-
+		if (placaIgualJaInserida(placaUpperCase)) {
+			throw new Exception("A placa digitada já foi inserida!");
+		}
 		if ((!estaLivre(vaga))) {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
 		if (vagaNaoExiste(vaga)) {
 			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
-		if (placaIgualJaInserida(placaUpperCase)) {
-			throw new Exception("A placa digitada já foi inserida!");
-		}
 
 		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
 			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
 		}
-
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -107,8 +105,9 @@ public class Estacionamento {
 	
 	// Consultar uma placa específica do Estacionamento
 	public int consultarPlaca(String placa) {
-		int getIndex = Arrays.asList(this.placas).indexOf(placa);
-		if (this.placas[getIndex].equals(placa)) {
+		String placaUpperCase = placa.toUpperCase();
+		int getIndex = Arrays.asList(this.placas).indexOf(placaUpperCase);
+		if (this.placas[getIndex].equals(placaUpperCase)) {
 			return getIndex + 1;
 		}
 		return -1;

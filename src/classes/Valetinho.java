@@ -10,18 +10,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-// import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-//import javax.swing.SwingConstants;
+import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 
-public class ValetinhoInterface {
+public class Valetinho {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -39,7 +38,7 @@ public class ValetinhoInterface {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ValetinhoInterface window = new ValetinhoInterface();
+					Valetinho window = new Valetinho();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +51,7 @@ public class ValetinhoInterface {
 	 * Create the application.
 	 * @throws Exception 
 	 */
-	public ValetinhoInterface() throws Exception {
+	public Valetinho() throws Exception {
 		initialize();
 	}
 
@@ -63,6 +62,7 @@ public class ValetinhoInterface {
 	private void initialize() throws Exception {
 		Estacionamento estacionamento = new Estacionamento(10);
 		frame = new JFrame();
+		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		frame.setBounds(100, 100, 663, 384);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -100,12 +100,12 @@ public class ValetinhoInterface {
 				int vaga = Integer.parseInt(textField_1.getText());
 				try {
 					estacionamento.entrar(placa, vaga);
+					JOptionPane.showMessageDialog(null, "Placa adicionada: " + placa.toUpperCase() + "\nVaga: " + vaga);
 				} catch (Exception e1) {
 					String error = e1.getMessage();
 					errorLabel.setText("Error: " + error);
-				
+					JOptionPane.showMessageDialog(null, "Placa inválida ou vaga ocupada. Tente novamente!");
 				}
-				JOptionPane.showMessageDialog(null, "Placa: " + placa + "\nVaga: " + vaga);
 			}
 		});
 		btnNewButton.setBounds(20, 60, 76, 26);
@@ -133,9 +133,10 @@ public class ValetinhoInterface {
 				int vaga = Integer.parseInt(textField_2.getText());		
 				try {
 					estacionamento.sair(vaga);
+					JOptionPane.showMessageDialog(null, "Saída bem-sucedida!");
 				} catch (Exception e1) {
-					String error = e1.getMessage();
-					errorLabel.setText("Error: " + error);
+					String error = "A vaga já está desocupada!";
+					errorLabel.setText("Error: " +error);
 				}
 			}
 		});
@@ -166,10 +167,10 @@ public class ValetinhoInterface {
 				try {
 				String vagaCaractere = textField_consultar.getText();
 				String resposta = Integer.toString(estacionamento.consultarPlaca(vagaCaractere));
-				consultarLabel.setText("Seu carro está na vaga: " + resposta+"º");
+				consultarLabel.setText("Seu carro está na " + resposta + "ª" + " vaga.");
 				}
 				catch(Exception e1) {
-					String error = e1.getMessage();
+					String error = "Placa Inexistente.";
 					errorLabel.setText("Error: " + error);
 				}
 			}
@@ -295,10 +296,5 @@ public class ValetinhoInterface {
 		});
 		btnNewButton_4.setBounds(534, 267, 103, 41);
 		frame.getContentPane().add(btnNewButton_4);
-	
-		
-		
-		
-	
 	}
 }
