@@ -99,7 +99,7 @@ public class Transferir {
 				
 				try {
 					estacionamento.transferir(vagaOrigem, vagaDestino);
-					JOptionPane.showMessageDialog(null, "Vaga transferida de " + vagaOrigem + " para a vaga " + vagaDestino);
+					JOptionPane.showMessageDialog(null, "Placa transferida da vaga " + vagaOrigem + " para a vaga " + vagaDestino);
 					frame.dispose();
 				} catch (Exception e1) {
 					errorLabel.setText("Error: "+e1.getMessage());
