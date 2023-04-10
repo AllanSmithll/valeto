@@ -31,6 +31,9 @@ public class Estacionamento {
 	// Método para adicionar uma placa a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
 		String placaUpperCase = placa.toUpperCase();
+		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
+			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
+		}
 		if (placaIgualJaInserida(placaUpperCase)) {
 			throw new Exception("A placa digitada já foi inserida!");
 		}
@@ -39,10 +42,6 @@ public class Estacionamento {
 		}
 		if (vagaNaoExiste(vaga)) {
 			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
-		}
-
-		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
-			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
 		}
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
@@ -82,11 +81,11 @@ public class Estacionamento {
 
 	// Transferir uma placa de uma vaga para outra
 	public void transferir(int origem, int destino) throws Exception{
-		if(destino == origem) {
-			throw new Exception("Vaga de destino igual à vaga de origem.");
-		}
 		if(vagaNaoExiste(origem) && vagaNaoExiste(destino)) {
 			throw new Exception("Pelo menos uma das vagas são inexistentes.");
+		}
+		if(destino == origem) {
+			throw new Exception("Vaga de destino igual à vaga de origem.");
 		}
 		if(!estaLivre(origem)) {
 			if (estaLivre(destino)) {

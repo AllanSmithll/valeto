@@ -1,5 +1,8 @@
-package classes;
-
+/**
+ * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * Classe Valetinho
+*/
+package classes_v2;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -48,12 +51,12 @@ public class Valetinho_v2 {
 	 * @throws Exception 
 	 */
 	private void initialize() throws Exception {
-		
 		frame = new JFrame();
+		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		frame.setBounds(100, 100, 649, 376);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		JLabel lblNewLabel = new JLabel("Estacionamento");
+		JLabel lblNewLabel = new JLabel("O que deseja fazer?");
 		JLabel errorArea = new JLabel("");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,10 +67,9 @@ public class Valetinho_v2 {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Entrar userEntry = new Entrar(estacionamento);
-
 			}
 		});
-		btnNewButton.setBounds(151, 69, 89, 40);
+		btnNewButton.setBounds(151, 69, 110, 54);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton sairButton = new JButton("Sair");
@@ -75,7 +77,7 @@ public class Valetinho_v2 {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
 				try {
-				String aux = JOptionPane.showInputDialog("Qual vaga sairá? ");	
+				String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
 				if(aux == null)
 				{
 					errorArea.setText("");
@@ -85,9 +87,7 @@ public class Valetinho_v2 {
 						estacionamento.sair(vaga);
 						
 				}}
-				
 					catch (Exception e1) {
-						// TODO Auto-generated catch block
 						errorArea.setText(e1.getMessage());
 					}
 				}
@@ -95,17 +95,17 @@ public class Valetinho_v2 {
 				
 			}
 		);
-		sairButton.setBounds(151, 133, 89, 40);
+		sairButton.setBounds(151, 133, 110, 54);
 		frame.getContentPane().add(sairButton);
 		
-		JButton btnNewButton_2 = new JButton("Tranferir");
+		JButton btnNewButton_2 = new JButton("Transferir");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Transferir userTransferir = new Transferir(estacionamento);
 				
 			}
 		});
-		btnNewButton_2.setBounds(342, 69, 89, 40);
+		btnNewButton_2.setBounds(342, 69, 110, 54);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton consultaButton = new JButton("Consultar");
@@ -113,7 +113,7 @@ public class Valetinho_v2 {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
 				try {
-					String vagaConsulta = JOptionPane.showInputDialog("Qual placa Deseja consultar? ");
+					String vagaConsulta = JOptionPane.showInputDialog("Qual placa deseja consultar? ");
 					
 					if(vagaConsulta == null ) {
 						errorArea.setText("");
@@ -126,19 +126,17 @@ public class Valetinho_v2 {
 							errorArea.setText("Placa não está no nosso estacionamento!");
 						}
 						else {
-						JOptionPane.showMessageDialog(null,aux);
-						String resposta = "Está na Nº: " +  Integer.toString(aux) +  "vaga";
+						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
 						JOptionPane.showMessageDialog(null, resposta);}
 					}
 					
 				}
 				catch(Exception e1) {		
-					
-					
+					errorArea.setText("Error: placa inexistente!");
 				}
 			}
 		});
-		consultaButton.setBounds(342, 133, 89, 40);
+		consultaButton.setBounds(342, 133, 110, 54);
 		frame.getContentPane().add(consultaButton);
 		
 		JButton ListagemButton = new JButton("Listagens");
@@ -148,7 +146,7 @@ public class Valetinho_v2 {
 			}
 		});
 		ListagemButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		ListagemButton.setBounds(252, 213, 110, 40);
+		ListagemButton.setBounds(246, 207, 116, 54);
 		frame.getContentPane().add(ListagemButton);
 		
 		

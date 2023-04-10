@@ -2,7 +2,7 @@
  * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
  * Classe Estacionamento
 */
-package classes;
+package classes_v2;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-// As propriedades precisam ser melhoradas
+// Classe Base
 public class Estacionamento {
 	private String[] placas;
 	
@@ -28,20 +28,21 @@ public class Estacionamento {
 		}
 	}
 	
-	// Método para adicionar um carro a uma vaga, e registrar no histórico
-	public void entrar(String placa, Integer vaga) throws Exception{
+	// Método para adicionar uma placa a uma vaga, e registrar no histórico
+	public void entrar(String placa, int vaga) throws Exception{
 		String placaUpperCase = placa.toUpperCase();
-
+		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
+			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
+		}
+		if (placaIgualJaInserida(placaUpperCase)) {
+			throw new Exception("A placa digitada já foi inserida!");
+		}
 		if ((!estaLivre(vaga))) {
 			throw new Exception("Não pode entrar! A vaga está ocupada.");
 		}
-		if (vagaNaoExiste(vaga) ) {
-			throw new Exception(" A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
+		if (vagaNaoExiste(vaga)) {
+			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
-		if (!formatacaoPlacaDentroDoPadrao(placa.toUpperCase())) {
-			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números).");
-		}
-
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -80,11 +81,11 @@ public class Estacionamento {
 
 	// Transferir uma placa de uma vaga para outra
 	public void transferir(int origem, int destino) throws Exception{
-		if(destino == origem) {
-			throw new Exception("Vaga de destino igual à vaga de origem.");
-		}
 		if(vagaNaoExiste(origem) && vagaNaoExiste(destino)) {
 			throw new Exception("Pelo menos uma das vagas são inexistentes.");
+		}
+		if(destino == origem) {
+			throw new Exception("Vaga de destino igual à vaga de origem.");
 		}
 		if(!estaLivre(origem)) {
 			if (estaLivre(destino)) {
@@ -103,8 +104,9 @@ public class Estacionamento {
 	
 	// Consultar uma placa específica do Estacionamento
 	public int consultarPlaca(String placa) {
-		int getIndex = Arrays.asList(this.placas).indexOf(placa);
-		if (this.placas[getIndex].equals(placa)) {
+		String placaUpperCase = placa.toUpperCase();
+		int getIndex = Arrays.asList(this.placas).indexOf(placaUpperCase);
+		if (this.placas[getIndex].equals(placaUpperCase)) {
 			return getIndex + 1;
 		}
 		return -1;
@@ -174,6 +176,14 @@ public class Estacionamento {
 
 	// Método para saber se a vaga existe
 	private boolean vagaNaoExiste(int vaga) {return vaga < 1 || vaga > this.placas.length;}
+
+	// Método para verificar se a placa do veículo que está entrando tem a mesma placa de um veículo que está dentro do Estacionamento
+	private boolean placaIgualJaInserida(String placa) {
+		for (String plac : placas) {
+            if (plac != "livre" && plac.equals(placa)) return true;
+        }
+        return false;
+	}
 
 	// Método para saber se a placa está formatada
 	private boolean formatacaoPlacaDentroDoPadrao(String placa) throws Exception {

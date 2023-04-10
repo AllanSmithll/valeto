@@ -1,5 +1,9 @@
-package classes;
-
+/**
+ * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * Swing class - Transferir
+*/
+package classes_v2;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,6 +23,7 @@ public class Transferir {
 	private Estacionamento estacionamento;
 	private JTextField vagaOrigemField;
 	private JTextField vagaDestinoField;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -50,6 +55,7 @@ public class Transferir {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		frame.setBounds(100, 100, 530, 346);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -79,10 +85,13 @@ public class Transferir {
 		vagaDestinoField.setColumns(10);
 		vagaDestinoField.setBounds(203, 143, 86, 20);
 		frame.getContentPane().add(vagaDestinoField);
-		
 		JButton btnNewButton = new JButton("Transferir");
+		JLabel errorLabel = new JLabel("");
+		errorLabel.setForeground(new Color(0, 0, 0));
+		errorLabel.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				errorLabel.setText("");
 				int vagaOrigem = Integer.parseInt(vagaOrigemField.getText());
 				vagaOrigemField.setText("");
 				int vagaDestino = Integer.parseInt(vagaDestinoField.getText());
@@ -93,8 +102,7 @@ public class Transferir {
 					JOptionPane.showMessageDialog(null, "Vaga transferida de " + vagaOrigem + " para a vaga " + vagaDestino);
 					frame.dispose();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					errorLabel.setText("Error: "+e1.getMessage());
 				}
 			}
 		});
@@ -108,7 +116,8 @@ public class Transferir {
 			}
 		});
 		voltarButton.setBounds(0, 0, 72, 23);
+		errorLabel.setBounds(10, 274, 496, 25);
 		frame.getContentPane().add(voltarButton);
+		frame.getContentPane().add(errorLabel);
 	}
-
 }

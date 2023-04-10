@@ -1,17 +1,19 @@
-package classes;
+/**
+ * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * Swing class - Entrar
+*/
+package classes_v2;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import java.awt.EventQueue;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Entrar {
 
@@ -40,11 +42,12 @@ public class Entrar {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Entre no Estacionamento");
+		JLabel lblNewLabel = new JLabel("Entrada no Estacionamento");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setBounds(100, 24, 230, 23);
@@ -71,28 +74,26 @@ public class Entrar {
 		vagaField.setBounds(168, 116, 86, 20);
 		frame.getContentPane().add(vagaField);
 		vagaField.setColumns(10);
-		
 		EntrarButton = new JButton("Entrar");
+		JLabel errorLabel = new JLabel("");
+		errorLabel.setForeground(new Color(0, 0, 0));
+		errorLabel.setBackground(new Color(255, 255, 255));
 		EntrarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				
+				errorLabel.setText("");
 				String placa = placaField.getText();
 				int vaga = Integer.parseInt(vagaField.getText());
 				try {
 					estacionamento.entrar(placa,vaga);
-					JOptionPane.showMessageDialog(null, "Entrada Feita na vaga:  " + vaga);
+					JOptionPane.showMessageDialog(null, "Entrada feita na vaga: " + vaga);
 					frame.dispose();
 					
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					String error = e1.getMessage();
-				
-				
+					errorLabel.setText("Error: "+e1.getMessage());
 				}
 			}
 		});
-		EntrarButton.setBounds(165, 189, 102, 34);
+		EntrarButton.setBounds(164, 177, 102, 34);
 		frame.getContentPane().add(EntrarButton);
 		JButton voltarButton = new JButton("Voltar");
 		voltarButton.addActionListener(new ActionListener() {
@@ -101,6 +102,8 @@ public class Entrar {
 			}
 		});
 		voltarButton.setBounds(0, 0, 72, 23);
+		errorLabel.setBounds(12, 221, 368, 30);
+		frame.getContentPane().add(errorLabel);
 		frame.getContentPane().add(voltarButton);
 	}
 }

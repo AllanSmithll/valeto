@@ -1,5 +1,8 @@
-package classes;
-
+/**
+ * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * Swing class - Listas
+*/
+package classes_v2;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -53,6 +56,7 @@ public class Listas {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		JLabel Listas = new JLabel("Listagens");
 		Listas.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		JTextArea textArea = new JTextArea();
