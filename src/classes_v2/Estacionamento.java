@@ -132,7 +132,7 @@ public class Estacionamento {
 	// Método que grava a placa e a vaga ocupada no momento, no arquivo placas.csv
 	public void gravarDados() throws Exception {
 		try {
-			FileWriter placas = new FileWriter("./data/placas.csv", true);
+			FileWriter placas = new FileWriter("./data/placas.csv", false);
 			for(int i=0; i < this.placas.length; i++) {
 				if(!estaLivre(i+1)) {
 					placas.write(String.format("%s;%s%n", i+1, this.placas[i]));
