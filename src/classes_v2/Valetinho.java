@@ -115,7 +115,7 @@ public class Valetinho {
 						int aux  = estacionamento.consultarPlaca(vagaConsulta);
 
 						if(aux < 0 ) {
-							errorArea.setText("Error: A Placa não está no nosso estacionamento!");
+							errorArea.setText("Error: a placa não está no nosso estacionamento!");
 						}
 						else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
