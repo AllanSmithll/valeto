@@ -76,21 +76,14 @@ public class Valetinho {
 				errorArea.setText("");
 				try {
 				String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
-				if(aux == null)
-				{
-					errorArea.setText("");
-				}
+				if(aux == null) {errorArea.setText("");}
 				else {
 					int vaga = Integer.parseInt(aux);	
-						estacionamento.sair(vaga);
-						
+					estacionamento.sair(vaga);	
 				}}
-					catch (Exception e1) {
-						errorArea.setText(e1.getMessage());
-					}
+				catch (Exception e1) {
+					errorArea.setText(e1.getMessage()); }
 				}
-				
-				
 			}
 		);
 		sairButton.setBounds(151, 133, 110, 54);
@@ -100,8 +93,7 @@ public class Valetinho {
 		JButton btnNewButton_2 = new JButton("Transferir");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Transferir userTransferir = new Transferir(estacionamento);
-				
+				Transferir userTransferir = new Transferir(estacionamento);	
 			}
 		});
 		btnNewButton_2.setBounds(342, 69, 110, 54);
@@ -123,7 +115,7 @@ public class Valetinho {
 						int aux  = estacionamento.consultarPlaca(vagaConsulta);
 
 						if(aux < 0 ) {
-							errorArea.setText("Placa não está no nosso estacionamento!");
+							errorArea.setText("Error: A Placa não está no nosso estacionamento!");
 						}
 						else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
