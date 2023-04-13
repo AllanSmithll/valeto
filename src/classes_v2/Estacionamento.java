@@ -44,7 +44,7 @@ public class Estacionamento {
 			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
 		else {
-			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", false);
+			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
 			DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			String dataFormatada = dataAtual.format(formatacaoData);
