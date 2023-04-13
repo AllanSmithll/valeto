@@ -65,7 +65,6 @@ public class Estacionamento {
 		if (vagaNaoExiste(vaga)) {
 			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
 		}
-
 		else {
 			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
 			LocalDateTime dataAtual = LocalDateTime.now();
@@ -99,7 +98,6 @@ public class Estacionamento {
 		else {
 			throw new Exception("Não foi possível transferir, pois a vaga de origem está livre (vazia).");
 		}
-
 	}
 	
 	// Consultar uma placa específica do Estacionamento
@@ -157,7 +155,6 @@ public class Estacionamento {
 				while(sc.hasNextLine()) {
 					this.placas[Integer.parseInt(linhas_lidas_placas_csv[0]) - 1] = linhas_lidas_placas_csv[0];
 				}
-
 				sc.close();
 			}
 		} catch (Exception e) {
