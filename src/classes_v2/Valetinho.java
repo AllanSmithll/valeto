@@ -60,7 +60,7 @@ public class Valetinho {
 		frame.getContentPane().add(lblNewLabel);
 		
 		// Botão de entrada
-		JButton btnNewButton = new JButton("Entrar");
+		JButton btnNewButton = new JButton("Entrada");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Entrar userEntry = new Entrar(estacionamento);
@@ -70,19 +70,23 @@ public class Valetinho {
 		frame.getContentPane().add(btnNewButton);
 		
 		// Botão de saída
-		JButton sairButton = new JButton("Sair");
+		JButton sairButton = new JButton("Saída");
 		sairButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
 				try {
 				String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
-				if(aux == null) {errorArea.setText("");}
+				if(aux == null)
+				{
+					errorArea.setText("");
+				}
 				else {
 					int vaga = Integer.parseInt(aux);	
-					estacionamento.sair(vaga);	
+						estacionamento.sair(vaga);
 				}}
-				catch (Exception e1) {
-					errorArea.setText(e1.getMessage()); }
+					catch (Exception e1) {
+						errorArea.setText("Error: "+e1.getMessage());
+					}
 				}
 			}
 		);
@@ -90,23 +94,23 @@ public class Valetinho {
 		frame.getContentPane().add(sairButton);
 		
 		// Botão de transferência
-		JButton btnNewButton_2 = new JButton("Transferir");
+		JButton btnNewButton_2 = new JButton("Transferência");
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Transferir userTransferir = new Transferir(estacionamento);	
+				Transferir userTransferir = new Transferir(estacionamento);
 			}
 		});
 		btnNewButton_2.setBounds(342, 69, 110, 54);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		// Botão de consultar placa
-		JButton consultaButton = new JButton("Consultar");
+		JButton consultaButton = new JButton("Consulta");
 		consultaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
 				try {
 					String vagaConsulta = JOptionPane.showInputDialog("Qual placa deseja consultar? ");
-					
 					if(vagaConsulta == null ) {
 						errorArea.setText("");
 					}
@@ -115,13 +119,12 @@ public class Valetinho {
 						int aux  = estacionamento.consultarPlaca(vagaConsulta);
 
 						if(aux < 0 ) {
-							errorArea.setText("Error: a placa não está no nosso estacionamento!");
+							errorArea.setText("Placa não está no nosso estacionamento!");
 						}
 						else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
 						JOptionPane.showMessageDialog(null, resposta);}
 					}
-					
 				}
 				catch(Exception e1) {		
 					errorArea.setText("Error: placa inexistente!");
