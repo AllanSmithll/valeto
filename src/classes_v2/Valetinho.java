@@ -75,18 +75,17 @@ public class Valetinho {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
 				try {
-				String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
-				if(aux == null)
-				{
-					errorArea.setText("");
-				}
+					String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
+					if(aux == null) { errorArea.setText("");}
 				else {
 					int vaga = Integer.parseInt(aux);	
-						estacionamento.sair(vaga);
+					estacionamento.sair(vaga);
 				}}
-					catch (Exception e1) {
-						errorArea.setText("Error: "+e1.getMessage());
-					}
+				catch (NumberFormatException ex) { 
+					errorArea.setText("Error: digite um número válido para vaga!"); 
+					return;
+				}
+				catch (Exception e1) {errorArea.setText("Error: "+e1.getMessage());}
 				}
 			}
 		);
@@ -111,24 +110,16 @@ public class Valetinho {
 				errorArea.setText("");
 				try {
 					String vagaConsulta = JOptionPane.showInputDialog("Qual placa deseja consultar? ");
-					if(vagaConsulta == null ) {
-						errorArea.setText("");
-					}
+					if(vagaConsulta == null ) { errorArea.setText(""); }
 					else {
-						
 						int aux  = estacionamento.consultarPlaca(vagaConsulta);
-
-						if(aux < 0 ) {
-							errorArea.setText("Placa não está no nosso estacionamento!");
-						}
+						if(aux < 0 ) {errorArea.setText("A placa digitada não está no nosso estacionamento!");}
 						else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
 						JOptionPane.showMessageDialog(null, resposta);}
 					}
 				}
-				catch(Exception e1) {		
-					errorArea.setText("Error: placa inexistente!");
-				}
+				catch(Exception e1) {errorArea.setText("Error: placa inexistente!");}
 			}
 		});
 		consultaButton.setBounds(342, 133, 110, 54);

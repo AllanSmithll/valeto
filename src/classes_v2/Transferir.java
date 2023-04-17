@@ -92,16 +92,23 @@ public class Transferir {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				errorLabel.setText("");
-				int vagaOrigem = Integer.parseInt(vagaOrigemField.getText());
-				vagaOrigemField.setText("");
-				int vagaDestino = Integer.parseInt(vagaDestinoField.getText());
-				vagaDestinoField.setText("");
-				
+				int vagaDestino=0;
+				int vagaOrigem=0;
+				try {
+					vagaOrigem = Integer.parseInt(vagaOrigemField.getText());
+					vagaOrigemField.setText("");
+					vagaDestino = Integer.parseInt(vagaDestinoField.getText());
+					vagaDestinoField.setText("");
+				}
+				catch (NumberFormatException ex) { 
+					errorLabel.setText("Error: digite um números válidos para as vagas!"); 
+					return;
+				}
 				try {
 					estacionamento.transferir(vagaOrigem, vagaDestino);
 					JOptionPane.showMessageDialog(null, "Placa transferida da vaga " + vagaOrigem + " para a vaga " + vagaDestino);
 					frame.dispose();
-				} catch (Exception e1) {
+				}catch (Exception e1) {
 					errorLabel.setText("Error: "+e1.getMessage());
 				}
 			}

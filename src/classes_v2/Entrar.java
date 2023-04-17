@@ -82,15 +82,19 @@ public class Entrar {
 			public void actionPerformed(ActionEvent e) {
 				errorLabel.setText("");
 				String placa = placaField.getText();
-				int vaga = Integer.parseInt(vagaField.getText());
+				int vaga = 0;
+				try {vaga = Integer.parseInt(vagaField.getText());}
+				catch (NumberFormatException ex) { 
+					errorLabel.setText("Error: digite um número válido para vaga!"); 
+					return;
+				}
 				try {
 					estacionamento.entrar(placa,vaga);
 					JOptionPane.showMessageDialog(null, "Entrada feita na vaga: " + vaga);
-					frame.dispose();
-					
-				} catch (Exception e1) {
-					errorLabel.setText("Error: "+e1.getMessage());
-				}
+					placaField.setText("");
+					vagaField.setText("");
+					// frame.dispose();
+				} catch (Exception e1) { errorLabel.setText("Error: "+e1.getMessage());}
 			}
 		});
 		EntrarButton.setBounds(164, 177, 102, 34);
