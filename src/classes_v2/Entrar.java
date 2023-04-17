@@ -94,6 +94,7 @@ public class Entrar {
 					return;
 				}
 				try {
+					placa = placa.replace("-", "");
 					estacionamento.entrar(placa,vaga);
 					JOptionPane.showMessageDialog(null, "Entrada feita na vaga: " + vaga);
 					placaField.setText("");
