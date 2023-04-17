@@ -82,10 +82,10 @@ public class Valetinho {
 					estacionamento.sair(vaga);
 				}}
 				catch (NumberFormatException ex) { 
-					errorArea.setText("Error: digite um número válido para vaga!"); 
+					errorArea.setText("Error: digite um número válido para vaga!");
 					return;
-				}
-				catch (Exception e1) {errorArea.setText("Error: "+e1.getMessage());}
+				}catch (IllegalArgumentException ex) {JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}catch (Exception e1) {errorArea.setText("Error: "+e1.getMessage());}
 				}
 			}
 		);

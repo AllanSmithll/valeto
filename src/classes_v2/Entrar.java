@@ -7,25 +7,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 public class Entrar {
 
 	private JFrame frame;
-	private JTextField placaField;
-	private JTextField vagaField;
 	private Estacionamento estacionamento;
 	private JButton EntrarButton;
-	/**
-	 * Launch the application.
-	 */
-
 
 	/**
 	 * Create the application.
@@ -46,7 +43,14 @@ public class Entrar {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+		//Formatador
+		MaskFormatter textPlaca=null;
+		try {
+			textPlaca = new MaskFormatter("UUU-####");
+			textPlaca.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 		JLabel lblNewLabel = new JLabel("Entrada no Estacionamento");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -65,12 +69,13 @@ public class Entrar {
 		lblNewLabel_2.setBounds(100, 117, 46, 14);
 		frame.getContentPane().add(lblNewLabel_2);
 		
-		placaField = new JTextField();
+		JFormattedTextField placaField = new JFormattedTextField(textPlaca);
 		placaField.setBounds(168, 70, 86, 20);
 		frame.getContentPane().add(placaField);
 		placaField.setColumns(10);
 		
-		vagaField = new JTextField();
+		JTextField vagaField = new JTextField();
+		vagaField.setText("");
 		vagaField.setBounds(168, 116, 86, 20);
 		frame.getContentPane().add(vagaField);
 		vagaField.setColumns(10);
