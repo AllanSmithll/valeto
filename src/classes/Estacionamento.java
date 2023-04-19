@@ -140,7 +140,8 @@ public class Estacionamento {
 				}
 			}
 			placas.flush();
-			placas.close();	
+			placas.close();
+		} catch (FileNotFoundException e) {throw new Exception("Arquivo não encontrado.");
 		} catch (Exception e){
 			throw new Exception(e.getMessage());
 		}
@@ -149,22 +150,16 @@ public class Estacionamento {
 	// Método que serve para ler cada linha do arquivo placas.csv
 	public void lerDados() throws Exception{
 		try {
-			File placas_file = new File("./data/placas.csv");
-
-			if(placas_file.exists()) {
-				Scanner sc = new Scanner("./data/placas.csv");
-				String[] linhas_lidas_placas_csv = sc.nextLine().split(";");
-
-				while(sc.hasNextLine()) {
-					this.placas[Integer.parseInt(linhas_lidas_placas_csv[0]) - 1] = linhas_lidas_placas_csv[0];
-				}
-
-				sc.close();
+			Scanner placas_file = new Scanner(new File("./data/placas.csv"));
+			while (placas_file.hasNextLine()) {				
+				String[] linhas_lidas_placas_csv = placas_file.nextLine().split(";");
+				this.placas[Integer.parseInt(linhas_lidas_placas_csv[0])-1] = linhas_lidas_placas_csv[1];
 			}
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
+			placas_file.close();
+		} catch (FileNotFoundException e) {throw new Exception("Arquivo não encontrado.");
+		} catch (Exception e2) {throw new Exception(e2.getMessage());}
 	}
+
 
 	// Método toString(), que serve para retornar os valores que estão na propriedade placas
 	public String toString() {
