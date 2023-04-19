@@ -38,6 +38,7 @@ public class Listas {
 	private void initialize() {
 		frame = new JFrame();
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane();
 		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		JLabel Listas = new JLabel("Listagens");
