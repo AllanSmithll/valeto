@@ -20,27 +20,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
 
 public class Listas {
 
 	private JFrame frame;
 	private Estacionamento estacionamento;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Listas window = new Listas();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the application.
@@ -56,11 +43,11 @@ public class Listas {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		JTextArea textArea = new JTextArea();
+		JScrollPane scrollPane = new JScrollPane();
 		frame.setTitle("Valetinho - Sistema de Estacionamento");
 		JLabel Listas = new JLabel("Listagens");
 		Listas.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		frame.setBounds(100, 100, 609, 387);
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,15 +61,11 @@ public class Listas {
 				int i = 0;
 				for(String vaga : listaGeral ) {
 					i++;
-					if(i == listaGeral.length/2) {
-						textArea.append( i + "º["+ vaga +"]" + "\n");
-					}
-					else {
-					textArea.append( i + "º["+ vaga +"] ");}
-					}
+					textArea.append( i + "º["+ vaga +"] " + "\n");}
+				
 			}
 		});
-		ListaGeralButton.setBounds(73, 124, 157, 58);
+		ListaGeralButton.setBounds(236, 122, 157, 58);
 		frame.getContentPane().add(ListaGeralButton);
 		
 		JButton VagasLivresButton = new JButton("Vagas Livres");
@@ -92,15 +75,14 @@ public class Listas {
 				textArea.setText("");
 				int i = 0;
 				ArrayList<Integer> vagasLivres = estacionamento.listarLivres();					
-				for(int vaga : vagasLivres ) { i++;
-				if(i == vagasLivres.size()/2) {
+				for(int vaga : vagasLivres ) { 
+					i++;
 					textArea.append("[Vaga: " +  vaga +"]" + "\n");
+				
 				}
-				else {
-				textArea.append("[Vaga: " +  vaga +"]");}}
 			}
 		});
-		VagasLivresButton.setBounds(334, 124, 157, 58);
+		VagasLivresButton.setBounds(236, 216, 157, 58);
 		frame.getContentPane().add(VagasLivresButton);
 		
 
@@ -108,10 +90,15 @@ public class Listas {
 		Listas.setBounds(148, 32, 303, 45);
 		frame.getContentPane().add(Listas);
 		
+	
+		scrollPane.setBounds(69, 77, 157, 226);
+		frame.getContentPane().add(scrollPane);
+		
+		scrollPane.setViewportView(textArea);
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		
 		
 		textArea.setBackground(new Color(240, 240, 240));
-		textArea.setBounds(73, 217, 469, 69);
-		frame.getContentPane().add(textArea);
 		
 		JButton voltarButton = new JButton("Voltar");
 		voltarButton.addActionListener(new ActionListener() {
