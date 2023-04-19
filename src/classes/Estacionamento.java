@@ -142,9 +142,7 @@ public class Estacionamento {
 			placas.flush();
 			placas.close();
 		} catch (FileNotFoundException e) {throw new Exception("Arquivo não encontrado.");
-		} catch (Exception e){
-			throw new Exception(e.getMessage());
-		}
+		} catch (Exception e) {throw new Exception(e.getMessage());}
 	}
 	
 	// Método que serve para ler cada linha do arquivo placas.csv
