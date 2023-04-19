@@ -122,7 +122,7 @@ public class Valetinho {
 						vagaConsulta = JOptionPane.showInputDialog("De qual vaga sairá? ");
 					}
 					int aux  = estacionamento.consultarPlaca(vagaConsulta);
-					if(aux < 0 ) {
+					if(aux < 0) {
 						errorArea.setText("Error: placa inexistente.");
 					} else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);

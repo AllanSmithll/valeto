@@ -106,8 +106,9 @@ public class Estacionamento {
 	public int consultarPlaca(String placa) {
 		String placaUpperCase = placa.toUpperCase();
 		int getIndex = Arrays.asList(this.placas).indexOf(placaUpperCase);
+		if (getIndex < 0) {return -1; }
 		if (this.placas[getIndex].equals(placaUpperCase)) {
-			return getIndex + 1;
+    		return getIndex + 1;
 		}
 		return -1;
 	}
