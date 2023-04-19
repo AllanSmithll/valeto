@@ -5,6 +5,7 @@
 package classes;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
@@ -51,12 +53,7 @@ public class Entrar {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-		try {
-			textVaga = new MaskFormatter("#####");
-			textVaga.setValidCharacters("0123456789");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
 		JLabel lblNewLabel = new JLabel("Entrada no Estacionamento");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -80,7 +77,7 @@ public class Entrar {
 		frame.getContentPane().add(placaField);
 		placaField.setColumns(10);
 		
-		JFormattedTextField vagaField = new JFormattedTextField(textVaga);
+		JTextField vagaField = new JTextField();
 		vagaField.setBounds(168, 123, 86, 20);
 		frame.getContentPane().add(vagaField);
 		vagaField.setColumns(10);
@@ -93,12 +90,13 @@ public class Entrar {
 				errorLabel.setText("");
 				String placa = placaField.getText();
 				int vaga = 0;
-				try {vaga = Integer.parseInt(vagaField.getText());}
+				try {vaga = Integer.parseInt(vagaField.getText().replace(" ", ""));}
 				catch (NumberFormatException ex) { 
 					errorLabel.setText("Error: digite um número válido para vaga!"); 
 					return;
 				}
 				try {
+					placa = placa.replace(" ", "");
 					estacionamento.entrar(placa,vaga);
 					JOptionPane.showMessageDialog(null, "Entrada feita na vaga: " + vaga);
 					placaField.setText("");

@@ -77,7 +77,7 @@ public class Transferir {
 					vagaDestinoField.setText("");
 				}
 				catch (NumberFormatException ex) { 
-					errorLabel.setText("Error: digite um números válidos para as vagas!"); 
+					errorLabel.setText("Error: digite números válidos para as vagas!"); 
 					return;
 				}
 				try {
