@@ -46,13 +46,12 @@ public class Entrar {
 		frame.getContentPane().setLayout(null);
 		//Formatador
 		MaskFormatter textPlaca=null;
-		MaskFormatter textVaga=null;
 		try {
 			textPlaca = new MaskFormatter("UUU####");
 			textPlaca.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        	} catch (ParseException e) {
+            		e.printStackTrace();
+        	}
 
 		JLabel lblNewLabel = new JLabel("Entrada no Estacionamento");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
