@@ -74,20 +74,24 @@ public class Valetinho {
 		sairButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				errorArea.setText("");
-				try {
-					String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
-					while(aux.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Digite um valor para saída!", "Ajuda", JOptionPane.INFORMATION_MESSAGE);
-						aux = JOptionPane.showInputDialog("De qual vaga sairá? ");
+				String vagaSaida = JOptionPane.showInputDialog("De qual vaga sairá? ");
+				if(vagaSaida==null) {System.out.println("Nenhuma operação realizada."); return;}
+				if(vagaSaida.isEmpty()) {
+    				JOptionPane.showMessageDialog(null, "Digite um valor para saída!", "Ajuda", JOptionPane.INFORMATION_MESSAGE); 
+				}
+				else {
+    				try {
+						errorArea.setText("");
+						int vaga = Integer.parseInt(vagaSaida);    
+						estacionamento.sair(vaga);
+					} catch (NumberFormatException ex) { 
+						errorArea.setText("Error: digite um número válido para vaga!");
+					} catch (IllegalArgumentException ex) {
+						JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception e1) {
+						errorArea.setText("Error: "+e1.getMessage());
+						}
 					}
-					errorArea.setText("");
-					int vaga = Integer.parseInt(aux);	
-					estacionamento.sair(vaga);
-					}
-				catch (NumberFormatException ex) { 
-					errorArea.setText("Error: digite um número válido para vaga!");
-				}catch (IllegalArgumentException ex) {JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}catch (Exception e1) {errorArea.setText("Error: "+e1.getMessage());}
 				}
 			}
 		);
@@ -112,18 +116,22 @@ public class Valetinho {
 				errorArea.setText("");
 				try {
 					String vagaConsulta = JOptionPane.showInputDialog("Qual placa deseja consultar? ");
+					if(vagaConsulta==null) {System.out.println("Nenhuma operação realizada."); return;}
 					while(vagaConsulta.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Digite uma placa para consultar!", "Ajuda", JOptionPane.INFORMATION_MESSAGE);
 						vagaConsulta = JOptionPane.showInputDialog("De qual vaga sairá? ");
 					}
 					int aux  = estacionamento.consultarPlaca(vagaConsulta);
-					if(aux < 0 ) {errorArea.setText("A placa digitada não está no nosso estacionamento!");}
-					else {
+					if(aux < 0 ) {
+						errorArea.setText("Error: placa inexistente.");
+					} else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
 						JOptionPane.showMessageDialog(null, resposta);
 					}
 				}
-				catch(Exception e1) {errorArea.setText("Error: placa inexistente!");}
+				catch(Exception e1) {
+					errorArea.setText("Error: ocorreu um erro ao consultar a placa!");
+				}
 			}
 		});
 		consultaButton.setBounds(342, 133, 110, 54);
