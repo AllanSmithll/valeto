@@ -2,8 +2,10 @@
  * TSI - POO - Prof fausto Ayres
  * Teste da classe Estacionamento
  */
-import classes.Estacionamento;
 import java.util.Scanner;
+
+import classes.Estacionamento;
+
 import java.time.LocalDateTime;
 
 public class AplicacaoConsole3 {

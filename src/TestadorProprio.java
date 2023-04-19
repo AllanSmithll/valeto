@@ -8,7 +8,17 @@ public class TestadorProprio {
 
 	public static void main(String[] args) throws Exception{
 		Estacionamento estacionamento = new Estacionamento(10);	//10 vaga
-
+		
+		try {
+			estacionamento.entrar("",11);
+			System.out.println("Listar geral novamente:");
+			for(String vagas : estacionamento.listarGeral()) {
+				System.out.println(vagas);
+			}
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		try {
 			System.out.println("Listar geral:");
 			for(String s : estacionamento.listarGeral()) {

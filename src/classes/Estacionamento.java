@@ -30,6 +30,7 @@ public class Estacionamento {
 	
 	// Método para adicionar uma placa a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
+		if (placa==null || placa.isEmpty()) {throw new Exception("Digite um valor para placa!");}
 		String placaUpperCase = placa.toUpperCase();
 		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
 			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
@@ -98,6 +99,7 @@ public class Estacionamento {
 		else {
 			throw new Exception("Não foi possível transferir, pois a vaga de origem está livre (vazia).");
 		}
+
 	}
 	
 	// Consultar uma placa específica do Estacionamento
@@ -155,6 +157,7 @@ public class Estacionamento {
 				while(sc.hasNextLine()) {
 					this.placas[Integer.parseInt(linhas_lidas_placas_csv[0]) - 1] = linhas_lidas_placas_csv[0];
 				}
+
 				sc.close();
 			}
 		} catch (Exception e) {

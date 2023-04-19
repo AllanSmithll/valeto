@@ -1,39 +1,26 @@
 /**
  * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
- * Classe Estacionamento
+ * Classe Valetinho
 */
 package classes;
-
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import java.awt.Color;
 
 public class Valetinho {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_consultar;
-	private JTextField vagaOrigemField;
-	private JTextField vagaDestinoField;
-	private JTextArea textArea;
+	private Estacionamento  estacionamento = new Estacionamento(10);
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,240 +47,116 @@ public class Valetinho {
 	 * @throws Exception 
 	 */
 	private void initialize() throws Exception {
-		Estacionamento estacionamento = new Estacionamento(10);
 		frame = new JFrame();
 		frame.setTitle("Valetinho - Sistema de Estacionamento");
-		frame.setBounds(100, 100, 663, 384);
+		frame.setBounds(100, 100, 649, 376);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Placa:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 11, 46, 14);
+		JLabel lblNewLabel = new JLabel("O que deseja fazer?");
+		JLabel errorArea = new JLabel("");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(209, 22, 199, 25);
 		frame.getContentPane().add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 29, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Vaga:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(110, 8, 46, 20);
-		frame.getContentPane().add(lblNewLabel_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(106, 29, 46, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		JLabel errorLabel = new JLabel("");
-		errorLabel.setBackground(new Color(0, 255, 0));
-		
-		JButton btnNewButton = new JButton("Entrar ");
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(255, 255, 255));
+		// Botão de entrada
+		JButton btnNewButton = new JButton("Entrada");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
-				
-				String placa = textField.getText();
-				int vaga = Integer.parseInt(textField_1.getText());
-				try {
-					estacionamento.entrar(placa, vaga);
-					JOptionPane.showMessageDialog(null, "Placa adicionada: " + placa.toUpperCase() + "\nVaga: " + vaga);
-				} catch (Exception e1) {
-					String error = e1.getMessage();
-					errorLabel.setText("Error: " + error);
-				}
+				Entrar userEntry = new Entrar(estacionamento);
 			}
 		});
-		btnNewButton.setBounds(20, 60, 76, 26);
+		btnNewButton.setBounds(151, 69, 110, 54);
 		frame.getContentPane().add(btnNewButton);
 		
-		
-		errorLabel.setBounds(10, 285, 368, 49);
-		frame.getContentPane().add(errorLabel);
-		
-		JLabel lblNewLabel_3 = new JLabel("Nº da vaga à sair: ");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(10, 112, 126, 20);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(10, 133, 51, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
-		
-		JButton btnNewButton_1 = new JButton("Sair");
-		btnNewButton_1.setBackground(new Color(255, 255, 255));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		// Botão de saída
+		JButton sairButton = new JButton("Saída");
+		sairButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
-				int vaga = Integer.parseInt(textField_2.getText());		
+				errorArea.setText("");
 				try {
+					String aux = JOptionPane.showInputDialog("De qual vaga sairá? ");	
+					while(aux.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Digite um valor para saída!", "Ajuda", JOptionPane.INFORMATION_MESSAGE);
+						aux = JOptionPane.showInputDialog("De qual vaga sairá? ");
+					}
+					errorArea.setText("");
+					int vaga = Integer.parseInt(aux);	
 					estacionamento.sair(vaga);
-					JOptionPane.showMessageDialog(null, "Saída bem-sucedida!");
-				} catch (Exception e1) {
-					String error = "A vaga já está desocupada!";
-					errorLabel.setText("Error: " +error);
+					}
+				catch (NumberFormatException ex) { 
+					errorArea.setText("Error: digite um número válido para vaga!");
+				}catch (IllegalArgumentException ex) {JOptionPane.showMessageDialog(frame, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}catch (Exception e1) {errorArea.setText("Error: "+e1.getMessage());}
 				}
 			}
-		});
-		btnNewButton_1.setBounds(67, 132, 59, 28);
-		frame.getContentPane().add(btnNewButton_1);
+		);
+		sairButton.setBounds(151, 133, 110, 54);
+		frame.getContentPane().add(sairButton);
 		
-		JLabel Label_ConsultarTitle = new JLabel("Consultar Placa:");
-		Label_ConsultarTitle.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		Label_ConsultarTitle.setBounds(10, 166, 103, 26);
-		frame.getContentPane().add(Label_ConsultarTitle);
-		
-		textField_consultar = new JTextField();
-		textField_consultar.setBounds(10, 192, 71, 20);
-		frame.getContentPane().add(textField_consultar);
-		textField_consultar.setColumns(10);
-		
-		JLabel consultarLabel = new JLabel("");
-		consultarLabel.setBackground(new Color(0, 255, 0));
-		consultarLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		consultarLabel.setBounds(10, 257, 208, 28);
-		frame.getContentPane().add(consultarLabel);
-		
-		JButton consultarBotao = new JButton("Consultar");
-		consultarBotao.setBackground(new Color(255, 255, 255));
-		consultarBotao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
-				try {
-				String vagaCaractere = textField_consultar.getText();
-				String resposta = Integer.toString(estacionamento.consultarPlaca(vagaCaractere));
-				consultarLabel.setText("Seu veículo está na " + resposta + "ª" + " vaga.");
-				}
-				catch(Exception e1) {
-					String error = "Placa Inexistente.";
-					errorLabel.setText("Error: " + error);
-				}
-			}
-		});
-		consultarBotao.setBounds(7, 223, 89, 36);
-		frame.getContentPane().add(consultarBotao);
-		
-		JLabel lblNewLabel_4 = new JLabel("Transferir Veículo:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(191, 11, 128, 36);
-		frame.getContentPane().add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Vaga Origem:");
-		lblNewLabel_5.setBounds(191, 48, 71, 14);
-		frame.getContentPane().add(lblNewLabel_5);
-		
-		vagaOrigemField = new JTextField();
-		vagaOrigemField.setBounds(269, 45, 46, 20);
-		frame.getContentPane().add(vagaOrigemField);
-		vagaOrigemField.setColumns(10);
-		
-		JLabel lblNewLabel_6 = new JLabel("Vaga Destino:");
-		lblNewLabel_6.setBounds(191, 76, 79, 14);
-		frame.getContentPane().add(lblNewLabel_6);
-		
-		vagaDestinoField = new JTextField();
-		vagaDestinoField.setBounds(269, 70, 46, 20);
-		frame.getContentPane().add(vagaDestinoField);
-		vagaDestinoField.setColumns(10);
-		
-		JButton btnNewButton_2 = new JButton("Transferir!");
-		btnNewButton_2.setBackground(new Color(255, 255, 255));
+		// Botão de transferência
+		JButton btnNewButton_2 = new JButton("Transferência");
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
-				try {
-					int vagaOrigem = Integer.parseInt(vagaOrigemField.getText());
-					vagaOrigemField.setText("");
-					int vagaDestino = Integer.parseInt(vagaDestinoField.getText());
-					vagaDestinoField.setText("");
-					estacionamento.transferir(vagaOrigem, vagaDestino);
-					
-				}
-				catch(Exception e1){
-					String error = e1.getMessage();
-					errorLabel.setText("Error: " + error);
-				}
+				Transferir userTransferir = new Transferir(estacionamento);
 			}
 		});
-		btnNewButton_2.setBounds(191, 113, 103, 40);
+		btnNewButton_2.setBounds(342, 69, 110, 54);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		JLabel lblNewLabel_7 = new JLabel("Lista Vagas Geral:");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_7.setBounds(419, 11, 126, 36);
-		frame.getContentPane().add(lblNewLabel_7);
-
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(421, 46, 103, 107);
-		frame.getContentPane().add(scrollPane);
-		textArea = new JTextArea();
-		textArea.setBackground(new Color(192, 192, 192));
-		scrollPane.setViewportView(textArea);
-		textArea.setTabSize(11);
-		
-		JButton btnNewButton_3 = new JButton("Listar");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		// Botão de consultar placa
+		JButton consultaButton = new JButton("Consulta");
+		consultaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
+				errorArea.setText("");
 				try {
-				String[] listaGeral = estacionamento.listarGeral();
-				textArea.setText("");
-				int i = 0;
-				for(String vaga : listaGeral ) {
-					i++;
-					textArea.append("Nº: " + i + " " + vaga +"\n");
-					
+					String vagaConsulta = JOptionPane.showInputDialog("Qual placa deseja consultar? ");
+					while(vagaConsulta.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Digite uma placa para consultar!", "Ajuda", JOptionPane.INFORMATION_MESSAGE);
+						vagaConsulta = JOptionPane.showInputDialog("De qual vaga sairá? ");
 					}
-				
+					int aux  = estacionamento.consultarPlaca(vagaConsulta);
+					if(aux < 0 ) {errorArea.setText("A placa digitada não está no nosso estacionamento!");}
+					else {
+						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
+						JOptionPane.showMessageDialog(null, resposta);
+					}
 				}
-					
-				
-				catch(Exception e1) {
-					String error = e1.getMessage();
-					errorLabel.setText("Error: " + error);
-				}					
-			}			
-		}
-		
-				
-		);
-		btnNewButton_3.setBounds(543, 104, 94, 40);
-		frame.getContentPane().add(btnNewButton_3);
-		
-		JLabel lblNewLabel_8 = new JLabel("Lista Vaga Livres:");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_8.setBounds(419, 172, 126, 20);
-		frame.getContentPane().add(lblNewLabel_8);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(421, 201, 103, 107);
-		frame.getContentPane().add(scrollPane_1);
-		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBackground(new Color(192, 192, 192));
-		scrollPane_1.setViewportView(textArea_1);
-		
-		JButton btnNewButton_4 = new JButton("Vagas Livres");
-		btnNewButton_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				errorLabel.setText("");
-				try {
-					textArea_1.setText("");
-					ArrayList<Integer> vagasLivres = estacionamento.listarLivres();					
-					for(int vaga : vagasLivres ) { textArea_1.append("Nº:" + vaga +"\n");}
-				}
-				catch(Exception e1) {
-					String error = e1.getMessage();
-					errorLabel.setText("Error: " + error);
-				}
+				catch(Exception e1) {errorArea.setText("Error: placa inexistente!");}
 			}
 		});
-		btnNewButton_4.setBounds(534, 267, 103, 41);
-		frame.getContentPane().add(btnNewButton_4);
+		consultaButton.setBounds(342, 133, 110, 54);
+		frame.getContentPane().add(consultaButton);
+		
+		// Botão de listagem
+		JButton ListagemButton = new JButton("Listagens");
+		ListagemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Listas listaUser = new Listas(estacionamento);
+			}
+		});
+		ListagemButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		ListagemButton.setBounds(246, 207, 116, 54);
+		frame.getContentPane().add(ListagemButton);
+		
+		
+		errorArea.setHorizontalAlignment(SwingConstants.CENTER);
+		errorArea.setBounds(45, 285, 532, 41);
+		frame.getContentPane().add(errorArea);
+		
+		// Gravar dados após fechar a aplicação
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowAdapter() {
+	      public void windowClosing(WindowEvent e) {
+	        int resposta = JOptionPane.showConfirmDialog(frame, "Tem certeza que deseja sair?", "Sair da aplicação", JOptionPane.YES_NO_OPTION);
+	        if (resposta == JOptionPane.YES_OPTION) {
+	          System.out.println("Fechando a aplicação...");
+	          try { estacionamento.gravarDados(); } catch (Exception e1) { e1.printStackTrace();}
+	          System.out.println("Finalizado!");
+	          System.exit(0);
+	        }
+	      }
+	    });
 	}
 }
