@@ -85,6 +85,7 @@ public class Valetinho {
 						errorArea.setText("");
 						int vaga = Integer.parseInt(vagaSaida);    
 						estacionamento.sair(vaga);
+						errorArea.setText("Saída bem-sucedida!");
 					} catch (NumberFormatException ex) { 
 						errorArea.setText("Error: digite um número válido para vaga!");
 					} catch (IllegalArgumentException ex) {
@@ -124,7 +125,7 @@ public class Valetinho {
 					}
 					int aux  = estacionamento.consultarPlaca(vagaConsulta);
 					if(aux < 0) {
-						errorArea.setText("Error: placa inexistente.");
+						errorArea.setText("Placa inexistente.");
 					} else {
 						String resposta = "A placa está na vaga Nº" +  Integer.toString(aux);
 						JOptionPane.showMessageDialog(null, resposta);
