@@ -7,8 +7,6 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -78,12 +76,10 @@ public class Transferir {
 				}
 				catch (NumberFormatException ex) { 
 					errorLabel.setText("Error: digite números válidos para as vagas!"); 
-					return;
 				}
 				try {
 					estacionamento.transferir(vagaOrigem, vagaDestino);
-					JOptionPane.showMessageDialog(null, "Placa transferida da vaga " + vagaOrigem + " para a vaga " + vagaDestino);
-					frame.dispose();
+					errorLabel.setText("Veículo transferido da vaga " + vagaOrigem + " para a vaga " + vagaDestino+".");
 				}catch (Exception e1) {
 					errorLabel.setText("Error: "+e1.getMessage());
 				}
