@@ -5,7 +5,6 @@
 package classes;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -14,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
@@ -97,7 +95,7 @@ public class Entrar {
 				try {
 					placa = placa.replace(" ", "");
 					estacionamento.entrar(placa,vaga);
-					JOptionPane.showMessageDialog(null, "Entrada feita na vaga: " + vaga);
+					errorLabel.setText("Entrada bem-sucedida!");
 					placaField.setText("");
 					vagaField.setText("");
 					// frame.dispose();
