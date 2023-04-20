@@ -1,4 +1,6 @@
-# Sistema-Estacionamento-POO - Características gerais
+# :car:Sistema Valetinho
+
+## Características gerais
 
 - Classe Valetinho - parte gráfica/frontend;
 - Classe Estacionamento - console/backend;
@@ -7,3 +9,7 @@
 
 Para mais informações sobre **requisitos**, acesse:
 [Requisitos do Projeto](https://drive.google.com/file/d/1U82GVsL4xTz1QhWNydE2n77kamBKyCPy/view?usp=share_link).
+
+## :bust_in_silhouette:Contribuidores
+
+Allan Amâncio, Márcio José e Yuri Sousa.
