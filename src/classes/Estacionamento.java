@@ -131,31 +131,48 @@ public class Estacionamento {
 		return vagasLivres;
 	}
 	
-	// Método que grava a placa e a vaga ocupada no momento, no arquivo placas.csv
+	// Método que grava a placa e a vaga ocupada no momento, no arquivo placas.csv, onde ele estiver
 	public void gravarDados() throws Exception {
 		try {
-			FileWriter placas = new FileWriter("./data/placas.csv", false);
+			File arquivoPlacas = new File(".//data/placas.csv").getCanonicalFile();
+			FileWriter escreverPlacas = new FileWriter(arquivoPlacas);
 			for(int i=0; i < this.placas.length; i++) {
 				if(!estaLivre(i+1)) {
-					placas.write(String.format("%s;%s%n", i+1, this.placas[i]));
+					escreverPlacas.write(String.format("%s;%s%n", i+1, this.placas[i]));
 				}
 			}
-			placas.flush();
-			placas.close();
-		} catch (FileNotFoundException e) {throw new Exception("Arquivo não encontrado.");
-		} catch (Exception e) {throw new Exception(e.getMessage());}
+			escreverPlacas.flush();
+			escreverPlacas.close();
+		// se não achar o arquivo, crie-o
+		} catch (FileNotFoundException e) {
+			 File arquivoPlacas = new File(".//data/placas.csv").getCanonicalFile();
+		     arquivoPlacas.createNewFile();
+		     FileWriter escreverPlacas = new FileWriter(arquivoPlacas);
+		     for(int i=0; i < this.placas.length; i++) {
+		    	 if(!estaLivre(i+1)) {
+		    		escreverPlacas.write(String.format("%s;%s%n", i+1, this.placas[i]));
+		         }
+		     }
+		     escreverPlacas.flush();
+		     escreverPlacas.close();
+		}catch (Exception e) {throw new Exception(e.getMessage());}
 	}
 	
 	// Método que serve para ler cada linha do arquivo placas.csv
 	public void lerDados() throws Exception{
 		try {
-			Scanner placas_file = new Scanner(new File("./data/placas.csv"));
+			File arquivoPlacas = new File(".//data/placas.csv").getCanonicalFile();
+			Scanner placas_file = new Scanner(arquivoPlacas);
 			while (placas_file.hasNextLine()) {				
 				String[] linhas_lidas_placas_csv = placas_file.nextLine().split(";");
 				this.placas[Integer.parseInt(linhas_lidas_placas_csv[0])-1] = linhas_lidas_placas_csv[1];
 			}
 			placas_file.close();
-		} catch (FileNotFoundException e) {throw new Exception("Arquivo não encontrado.");
+		// se não achgar o arquivo, crie-o
+		} catch (FileNotFoundException e) {
+			File arquivoPlacas = new File(".//data/placas.csv");
+		     arquivoPlacas.createNewFile();
+		     gravarDados();
 		} catch (Exception e2) {throw new Exception(e2.getMessage());}
 	}
 
