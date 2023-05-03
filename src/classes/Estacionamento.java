@@ -31,52 +31,64 @@ public class Estacionamento {
 	
 	// Método para adicionar uma placa a uma vaga, e registrar no histórico
 	public void entrar(String placa, int vaga) throws Exception{
-		if (placa==null || placa.isEmpty()) {throw new Exception("Digite um valor para placa!");}
-		String placaUpperCase = placa.toUpperCase();
-		if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
-			throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
-		}
-		if (placaIgualJaInserida(placaUpperCase)) {
-			throw new Exception("A placa digitada já foi inserida!");
-		}
-		if ((!estaLivre(vaga))) {
-			throw new Exception("Não pode entrar! A vaga está ocupada.");
-		}
-		if (vagaNaoExiste(vaga)) {
-			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
-		}
-		else {
-			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
-			LocalDateTime dataAtual = LocalDateTime.now();
-			DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-			String dataFormatada = dataAtual.format(formatacaoData);
-			
-			placas[vaga-1] = placaUpperCase;
-			
-			historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga, placaUpperCase, "Entrada"));
-			historicoMovimentacao.flush();
-			historicoMovimentacao.close();
+		try {
+			if (placa==null || placa.isEmpty()) {throw new Exception("Digite um valor para placa!");}
+			String placaUpperCase = placa.toUpperCase();
+			if (!formatacaoPlacaDentroDoPadrao(placaUpperCase)) {
+				throw new Exception("A placa possui formato diferente do padrão, que é AAA0000 (3 letras e 4 números). Por isso, nada foi inserido no Estacionamento.");
+			}
+			if (placaIgualJaInserida(placaUpperCase)) {
+				throw new Exception("A placa digitada já foi inserida!");
+			}
+			if ((!estaLivre(vaga))) {
+				throw new Exception("Não pode entrar! A vaga está ocupada.");
+			}
+			if (vagaNaoExiste(vaga)) {
+				throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
+			}
+			else {
+				File arquivoHistoricoFile = new File(".//data/historico.csv").getCanonicalFile();
+				FileWriter historicoMovimentacao = new FileWriter(arquivoHistoricoFile, true);
+				LocalDateTime dataAtual = LocalDateTime.now();
+				DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				String dataFormatada = dataAtual.format(formatacaoData);
+				
+				placas[vaga-1] = placaUpperCase;
+				
+				historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga, placaUpperCase, "Entrada"));
+				historicoMovimentacao.flush();
+				historicoMovimentacao.close();}
+		}catch(FileNotFoundException e1) {
+			File arquivoHistoricoFile = new File(".//data/historico.csv").getCanonicalFile();
+			arquivoHistoricoFile.createNewFile();
+			entrar(placa, vaga);
 		}
 	}
 
 	// Método para remover uma placa de onde está estacionada e gravar no histórico
 	public void sair(int vaga) throws Exception{
-		if(estaLivre(vaga)) {
-			throw new Exception("A vaga já está desocupada. Tente desocupar por outro número de vaga existente.");
-		}
-		if (vagaNaoExiste(vaga)) {
-			throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
-		}
-		else {
-			FileWriter historicoMovimentacao = new FileWriter("./data/historico.csv", true);
-			LocalDateTime dataAtual = LocalDateTime.now();
-			DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-			String dataFormatada = dataAtual.format(formatacaoData);
-			
-			historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga,placas[vaga-1], "Saida"));
-			placas[vaga-1] = "livre";
-			historicoMovimentacao.flush();
-			historicoMovimentacao.close();
+		try {
+			if(estaLivre(vaga)) {
+				throw new Exception("A vaga já está desocupada. Tente desocupar por outro número de vaga existente.");
+			}
+			if (vagaNaoExiste(vaga)) {
+				throw new Exception("A vaga está fora do intervalo de 1 a " + this.placas.length + "vagas.");
+			}
+			else {
+				File arquivoHistoricoFile = new File(".//data/historico.csv").getCanonicalFile();
+				FileWriter historicoMovimentacao = new FileWriter(arquivoHistoricoFile, true);
+				LocalDateTime dataAtual = LocalDateTime.now();
+				DateTimeFormatter formatacaoData = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				String dataFormatada = dataAtual.format(formatacaoData);
+				
+				historicoMovimentacao.write(String.format("%s;%s;%s;%s%n", dataFormatada, vaga,placas[vaga-1], "Saida"));
+				placas[vaga-1] = "livre";
+				historicoMovimentacao.flush();
+				historicoMovimentacao.close();}
+		}catch(FileNotFoundException e1) {
+			File arquivoHistoricoFile = new File(".//data/historico.csv").getCanonicalFile();
+			arquivoHistoricoFile.createNewFile();
+			sair(vaga);
 		}
 	}
 
@@ -170,9 +182,9 @@ public class Estacionamento {
 			placas_file.close();
 		// se não achgar o arquivo, crie-o
 		} catch (FileNotFoundException e) {
-			File arquivoPlacas = new File(".//data/placas.csv");
-		     arquivoPlacas.createNewFile();
-		     gravarDados();
+			File arquivoPlacas = new File(".//data/placas.csv").getCanonicalFile();
+		    arquivoPlacas.createNewFile();
+		    gravarDados();
 		} catch (Exception e2) {throw new Exception(e2.getMessage());}
 	}
 
