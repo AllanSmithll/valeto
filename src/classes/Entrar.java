@@ -1,5 +1,5 @@
 /**
- * TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
+ * @authors TSI - POO - Allan Amâncio, Márcio José, Yuri Sousa
  * Swing class - Entrar
 */
 package classes;
