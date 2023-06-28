@@ -9,9 +9,9 @@ For more information about requirements, please access:
 Project Requirements.
 
 ## :bust_in_silhouette: Contributors
-Allan Amâncio
-Márcio José
-Yuri Sousa
+- Allan Amâncio -> https://github.com/AllanSmithll
+- Márcio José -> https://github.com/ImMarcio
+- Yuri Sousa -> https://github.com/Souza1999
 
 ## :rocket: Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
