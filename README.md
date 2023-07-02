@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Prerequisites
 To run this project, you need to have the following software installed on your machine:
 
-Java Development Kit (JDK) 8 or higher
+Java Development Kit (JDK) 17 or higher
 Eclipse IDE
 
 ## Installing
