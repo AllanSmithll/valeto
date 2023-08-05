@@ -5,8 +5,6 @@ Valetinho class - graphical user interface (GUI) / frontend;
 Estacionamento class - console / backend;
 "data" folder for data storage;
 Testing classes.
-For more information about requirements, please access:
-Project Requirements.
 
 ## :bust_in_silhouette: Contributors
 - Allan Amâncio -> https://github.com/AllanSmithll
