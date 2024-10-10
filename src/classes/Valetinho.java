@@ -49,7 +49,7 @@ public class Valetinho {
 	private void initialize() throws Exception {
 		estacionamento.lerDados();
 		frame = new JFrame();
-		frame.setTitle("Valetinho - Sistema de Estacionamento");
+		frame.setTitle("Valeto - Sistema de Estacionamento");
 		frame.setBounds(100, 100, 649, 376);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
