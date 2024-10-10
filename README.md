@@ -1,4 +1,4 @@
-# :car: Valetinho Parking System
+# :car: Valeto
 Este projeto consiste em um sistema de gestão de estacionamento com as seguintes funcionalidades:
 
 ![Preview](assets/preview.png)
