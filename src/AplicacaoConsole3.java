@@ -8,6 +8,8 @@ import classes.Estacionamento;
 
 import java.time.LocalDateTime;
 
+import java.time.format.DateTimeFormatter;
+
 public class AplicacaoConsole3 {
 	public static void main(String[] args) {
 		Estacionamento estacionamento = null;
@@ -29,7 +31,7 @@ public class AplicacaoConsole3 {
 		do{
 			try {
 				System.out.println("\n---------------------------------------------------");
-				System.out.println("VALETINHO DO IFPB  - " + LocalDateTime.now() );
+				System.out.println( "VALETO  - " + LocalDateTime.now().format( DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") ) );
 				System.out.println("---------------------------------------------------");
 				System.out.println("Menu:");
 				System.out.println("0 - terminar programa");
@@ -44,7 +46,7 @@ public class AplicacaoConsole3 {
 
 				switch(op) {
 				case 0 : 
-					System.out.println("Volte sempre!!!"); 
+					System.out.println("Volte sempre!");
 					break;
 				case 1 : 
 					System.out.print("Qual a placa para entrar? ");
